@@ -14,6 +14,7 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <h1>App is loading</h1>
         <Navbar />
         <main>
           <Routes>
