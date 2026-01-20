@@ -8,12 +8,13 @@ const Home = () => {
 
   return (
     <div className="home-page">
-    
-
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-image">
-          <img src="./images/hero sec image.png" alt="Delicious campus food" />
+          <img 
+            src="https://plus.unsplash.com/premium_photo-1695297516692-82b537c62733?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            alt="Delicious campus food and students enjoying meals" 
+          />
         </div>
         <div className="hero-content">
           <h1 className="hero-title">DISCOVER THE BEST<br />EATS IN & AROUND<br />CAMPUS</h1>

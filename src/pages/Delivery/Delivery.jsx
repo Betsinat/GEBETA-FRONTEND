@@ -1,4 +1,4 @@
-// src/pages/Delivery/Delivery.jsx
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import mockData from '../../Mock-data/mock-data.json';
