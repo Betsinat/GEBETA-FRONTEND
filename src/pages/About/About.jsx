@@ -21,7 +21,7 @@ const About = () => {
     
     try {
       // Submit to JSON Server API
-      const response = await fetch('http://localhost:3004/businessApplications', {
+      const response = await fetch('http://localhost:3000/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
