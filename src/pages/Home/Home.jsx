@@ -16,7 +16,7 @@ const Home = () => {
     try {
       // Fetch featured businesses AND reviews using API documentation structure
       const [businessesResponse, reviewsResponse] = await Promise.all([
-        fetch('http://localhost:3000/bs?iusinessesFeatured=true&_limit=6'),
+        fetch('http://localhost:3000/businesses?isFeatured=true&_limit=6'),
         fetch('http://localhost:3000/reviews?_limit=6&_sort=createdAt&_order=desc')
       ]);
       
