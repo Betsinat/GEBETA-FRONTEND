@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
+import './styles/global.css';
+import './styles/variable.css';
 
 // Import pages
 import Home from './pages/Home/Home';
@@ -14,7 +16,6 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <h1>App is loading</h1>
         <Navbar />
         <main>
           <Routes>
