@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import './About.css';
 
 const About = () => {
@@ -123,9 +124,9 @@ const About = () => {
                 ></textarea>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
+              <Button variant="primary" type="submit" style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
                 Submit
-              </button>
+              </Button>
             </form>
           </div>
         </section>

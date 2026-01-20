@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import './Delivery.css';
 
 const Delivery = () => {
@@ -406,13 +407,13 @@ const Delivery = () => {
                 autoFocus
               />
               {searchQuery && (
-                <button className="clear-search-btn" onClick={handleClearSearch}>
+                <Button variant="neutral" size="small" onClick={handleClearSearch} className="clear-search-btn">
                   <i className="fa-solid fa-times"></i>
-                </button>
+                </Button>
               )}
-              <button className="search-action-btn" onClick={handleSearch}>
+              <Button variant="primary" size="medium" onClick={handleSearch} className="search-action-btn">
                 <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
+              </Button>
             </div>
             {loading && (
               <div className="search-loading">
@@ -478,15 +479,16 @@ const Delivery = () => {
                       </div>
                     </div>
                     
-                    <button 
-                      className="btn btn-explore"
+                    <Button 
+                      variant="outline"
+                      size="small"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeliveryClick(delivery.id);
                       }}
                     >
                       Explore
-                    </button>
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -524,9 +526,9 @@ const Delivery = () => {
                 Discover every delivery service available around campus - rated,
                 reviewed, and compared for you.
               </p>
-              <button className="btn btn-delivery-primary" onClick={handleOrderClick}>
+              <Button variant="outline" size="medium" onClick={handleOrderClick}>
                 Order
-              </button>
+              </Button>
             </div>
           </section>
 
@@ -572,15 +574,16 @@ const Delivery = () => {
                     </div>
                   </div>
                   
-                  <button 
-                    className="btn btn-explore"
+                  <Button 
+                    variant="outline"
+                    size="small"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDeliveryClick(delivery.id);
                     }}
                   >
                     Explore
-                  </button>
+                  </Button>
                 </div>
               ))}
               

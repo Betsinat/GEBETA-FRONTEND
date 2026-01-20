@@ -4,6 +4,8 @@
   border-radius: var(--border-radius-btn);
   font-family: var(--font-script);
   font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: none;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -14,7 +16,7 @@
 /* Variants */
 .primary {
   background-color: var(--color-primary);
-  color: var(--primary-bg);
+  color: var(--text-white);
   border-color: var(--color-primary);
 }
 
@@ -36,7 +38,7 @@
 
 .success {
   background-color: var(--color-success);
-  color: var(--primary-bg);
+  color: var(--text-white);
   border-color: var(--color-success);
 }
 
@@ -86,23 +88,23 @@
 
 .outline:hover:not(.disabled) {
   background-color: var(--color-primary);
-  color: var(--primary-bg);
+  color: var(--text-white);
   transform: scale(1.05);
 }
 
 /* Sizes */
 .small {
-  padding: 8px 16px;
+  padding: 8px 20px;
   font-size: 0.9rem;
 }
 
 .medium {
-  padding: 12px 24px;
+  padding: 12px 28px;
   font-size: 1rem;
 }
 
 .large {
-  padding: 16px 32px;
+  padding: 16px 36px;
   font-size: 1.2rem;
 }
 
