@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link, useParams } from 'react-router-dom';
+import { useLocation, Link, useParams, useNavigate } from 'react-router-dom';
 import './CustomerReview.css';
 
 const CustomerReview = () => {
   const location = useLocation();
   const params = useParams();
+  const navigate = useNavigate();
   const [business, setBusiness] = useState(null);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
@@ -12,18 +13,97 @@ const CustomerReview = () => {
   const [expandedReviews, setExpandedReviews] = useState({});
   const [showAllReviews, setShowAllReviews] = useState(false);
 
-  // Get business data from state or use fallback
+  // Sync this menu items array with MenuItemDetail component
+  const allMenuItems = [
+    {
+      id: 1,
+      name: 'BEYAYNETU',
+      price: '120 ETB',
+      image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=1000&auto=format&fit=crop',
+      description: 'Traditional Ethiopian platter with assorted vegetables and injera',
+      rating: 4.5,
+      reviewCount: 234,
+      category: 'Main Dish'
+    },
+    {
+      id: 2,
+      name: 'DORO WOT',
+      price: '150 ETB',
+      image: 'https://media.istockphoto.com/id/870064540/photo/ethiopian-doro-wot.webp?a=1&b=1&s=612x612&w=0&k=20&c=vnxlWJREiw8f4GN_D1pkF8NaGIhDZnajD_ihL9VUXQ8=',
+      description: 'Spicy chicken stew served with injera',
+      rating: 4.8,
+      reviewCount: 189,
+      category: 'Main Dish'
+    },
+    {
+      id: 3,
+      name: 'TIBES',
+      price: '180 ETB',
+      image: 'https://media.istockphoto.com/id/619254834/photo/traditional-oromo-and-ethiopian-cuisine-dish-aka-tibs-ethiopia.jpg?s=612x612&w=0&k=20&c=Box_8s0OZjiEpMZvWuXSHBEOqRbSfzir8oOU2kIJlwQ=',
+      description: 'Fried meat cubes with spices and vegetables',
+      rating: 4.3,
+      reviewCount: 156,
+      category: 'Main Dish'
+    },
+    {
+      id: 4,
+      name: 'SHIRO',
+      price: '100 ETB',
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop',
+      description: 'Chickpea flour stew with spices',
+      rating: 4.6,
+      reviewCount: 201,
+      category: 'Main Dish'
+    },
+    {
+      id: 5,
+      name: 'KITFO',
+      price: '160 ETB',
+      image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop',
+      description: 'Minced beef seasoned with spices',
+      rating: 4.4,
+      reviewCount: 178,
+      category: 'Main Dish'
+    },
+    {
+      id: 6,
+      name: 'TIBS FIRFIR',
+      price: '140 ETB',
+      image: 'https://media.istockphoto.com/id/870064540/photo/ethiopian-doro-wot.webp?a=1&b=1&s=612x612&w=0&k=20&c=vnxlWJREiw8f4GN_D1pkF8NaGIhDZnajD_ihL9VUXQ8=',
+      description: 'Shredded injera mixed with tibs',
+      rating: 4.2,
+      reviewCount: 145,
+      category: 'Main Dish'
+    },
+    {
+      id: 7,
+      name: 'SPAGHETTI',
+      price: '120 ETB',
+      image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800&auto=format&fit=crop',
+      description: 'Italian pasta with tomato sauce and cheese',
+      rating: 4.2,
+      reviewCount: 189,
+      category: 'Pasta'
+    },
+    {
+      id: 8,
+      name: 'PIZZA',
+      price: '150 ETB',
+      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop',
+      description: 'Cheese pizza with fresh toppings',
+      rating: 4.7,
+      reviewCount: 312,
+      category: 'Fast Food'
+    }
+  ];
+
   useEffect(() => {
     const fetchBusinessData = async () => {
       try {
-        // If business data is passed via state, use it
         if (location.state?.business) {
           setBusiness(location.state.business);
           setLoading(false);
-        } 
-        // Otherwise, try to fetch from API
-        else if (params.id) {
-          // API Endpoint: GET /api/businesses/:id
+        } else if (params.id) {
           const response = await fetch(`/api/businesses/${params.id}`);
           
           if (response.ok) {
@@ -34,12 +114,9 @@ const CustomerReview = () => {
               throw new Error('Failed to fetch business data');
             }
           } else {
-            // Fallback to mock data
-            console.log('API call failed, using mock data');
             setBusiness(getFallbackBusiness(params.id));
           }
         } else {
-          // No ID or state, use default mock data
           setBusiness(getFallbackBusiness('b1'));
         }
       } catch (error) {
@@ -52,7 +129,6 @@ const CustomerReview = () => {
 
     const fetchReviews = async () => {
       try {
-        // API Endpoint: GET /api/reviews/business/:businessId
         const businessId = location.state?.business?.id || params.id || 'b1';
         const response = await fetch(`/api/reviews/business/${businessId}?limit=5&sort=newest`);
         
@@ -60,7 +136,6 @@ const CustomerReview = () => {
           const data = await response.json();
           if (data.success) {
             setReviews(data.data);
-            // Initialize expanded state for reviews
             const initialExpanded = {};
             data.data.forEach(review => {
               initialExpanded[review.id] = false;
@@ -70,9 +145,7 @@ const CustomerReview = () => {
         }
       } catch (error) {
         console.error('Error fetching reviews:', error);
-        // Use mock reviews as fallback
         setReviews(mockReviews);
-        // Initialize expanded state for mock reviews
         const initialExpanded = {};
         mockReviews.forEach(review => {
           initialExpanded[review.id] = false;
@@ -81,22 +154,13 @@ const CustomerReview = () => {
       }
     };
 
+    // Use the synced menu items
     const fetchMenuItems = async () => {
       try {
-        // API Endpoint: GET /api/menu/:businessId
-        const businessId = location.state?.business?.id || params.id || 'b1';
-        const response = await fetch(`/api/menu/${businessId}?limit=4`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setMenuItems(data.data);
-          }
-        }
+        setMenuItems(allMenuItems.slice(0, 8)); // Take first 8 items
       } catch (error) {
         console.error('Error fetching menu items:', error);
-        // Use mock menu items as fallback
-        setMenuItems(mockMenuItems);
+        setMenuItems(allMenuItems.slice(0, 8));
       }
     };
 
@@ -138,22 +202,6 @@ const CustomerReview = () => {
         priceRange: '$$',
         phone: '(123) 456-7891',
         website: 'https://arrivedelivery.com'
-      },
-      'o1': {
-        id: 'o1',
-        name: 'OASIS CAFE',
-        mainImage: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx2aXN1YWwtc2VhcmNofDF8fHxlbnwwfHx8fHw%3D',
-        rating: 4.5,
-        reviews: 234,
-        location: 'Infront of 5K DORMITORY Main GATE',
-        groupFriendly: true,
-        hours: '6pm',
-        category: 'Off-Campus',
-        description: 'Cozy cafe near campus with great coffee and snacks.',
-        menuItems: ['Coffee', 'Tea', 'Pastries', 'Sandwiches', 'Desserts'],
-        priceRange: '$$',
-        phone: '(123) 456-7892',
-        website: 'https://oasiscafe.com'
       }
     };
     return businesses[id] || businesses['b1'];
@@ -184,22 +232,7 @@ const CustomerReview = () => {
       rating: 5,
       image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop',
       review: '"I HAD AN AMAZING EXPERIENCE AT THIS RESTAURANT! THE PLACE WAS CLEAN, BEAUTIFULLY DECORATED, AND THE STAFF WERE INCREDIBLY POLITE. I ORDERED THE BEEF TIBS WITH INJERA AND IT WAS SERVED HOT AND FRESH. THE SERVICE WAS QUICK AND EFFICIENT EVEN DURING PEAK HOURS."'
-    },
-    {
-      id: 4,
-      name: 'Beza Tadesse',
-      year: '3rd Year',
-      rating: 4,
-      image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=200&auto=format&fit=crop',
-      review: '"GOOD FOOD OVERALL, BUT THE SERVICE CAN BE SLOW DURING PEAK HOURS. THE MANGO JUICE WAS EXCELLENT - FRESH AND NOT TOO SWEET. THE SEATING AREA IS COMFORTABLE AND CLEAN. I RECOMMEND COMING DURING OFF-PEAK HOURS FOR BETTER SERVICE."'
     }
-  ];
-
-  const mockMenuItems = [
-    { id: 1, name: 'BEYAYNET', price: '120 ETB', image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop' },
-    { id: 2, name: 'SPAGHETTI', price: '120 ETB', image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop' },
-    { id: 3, name: 'BEYAYNET', price: '120 ETB', image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?q=80&w=400&auto=format&fit=crop' },
-    { id: 4, name: 'BEYAYNET', price: '120 ETB', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400&auto=format&fit=crop' }
   ];
 
   const renderStars = (rating) => {
@@ -232,7 +265,6 @@ const CustomerReview = () => {
 
   const handleLoadMoreReviews = async () => {
     try {
-      // API Endpoint: GET /api/reviews/business/:businessId with pagination
       const businessId = business?.id || params.id || 'b1';
       const currentPage = Math.ceil(reviews.length / 3) + 1;
       const response = await fetch(`/api/reviews/business/${businessId}?page=${currentPage}&limit=2&sort=newest`);
@@ -241,15 +273,21 @@ const CustomerReview = () => {
         const data = await response.json();
         if (data.success && data.data.length > 0) {
           setReviews(prev => [...prev, ...data.data]);
-          // Initialize expanded state for new reviews
           const newExpanded = {};
           data.data.forEach(review => {
             newExpanded[review.id] = false;
           });
           setExpandedReviews(prev => ({ ...prev, ...newExpanded }));
         } else {
-          // If no more reviews from API, add mock reviews
           const additionalMockReviews = [
+            {
+              id: 4,
+              name: 'Beza Tadesse',
+              year: '3rd Year',
+              rating: 4,
+              image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=200&auto=format&fit=crop',
+              review: '"GOOD FOOD OVERALL, BUT THE SERVICE CAN BE SLOW DURING PEAK HOURS. THE MANGO JUICE WAS EXCELLENT - FRESH AND NOT TOO SWEET. THE SEATING AREA IS COMFORTABLE AND CLEAN. I RECOMMEND COMING DURING OFF-PEAK HOURS FOR BETTER SERVICE."'
+            },
             {
               id: 5,
               name: 'Dawit Assefa',
@@ -257,14 +295,6 @@ const CustomerReview = () => {
               rating: 5,
               image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
               review: '"BEST BEYAYNET IN CAMPUS! THE VARIETY OF VEGETABLES IS IMPRESSIVE AND EVERYTHING TASTES FRESH. THE INJERA IS SOFT AND PERFECTLY FERMENTED. VERY AFFORDABLE FOR STUDENTS. THE STAFF ARE FRIENDLY AND ALWAYS SMILING."'
-            },
-            {
-              id: 6,
-              name: 'Hana Solomon',
-              year: '1st Year',
-              rating: 4,
-              image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
-              review: '"GREAT PLACE FOR STUDENTS. THE FOOD IS DELICIOUS AND THE PRICES ARE STUDENT-FRIENDLY. THE ONLY DOWNSIDE IS THAT IT GETS CROWDED DURING LUNCH HOURS. I RECOMMEND GOING A BIT EARLY OR LATE."'
             }
           ];
           setReviews(prev => [...prev, ...additionalMockReviews]);
@@ -277,15 +307,14 @@ const CustomerReview = () => {
       }
     } catch (error) {
       console.error('Error loading more reviews:', error);
-      // Add mock reviews as fallback
       const additionalMockReviews = [
         {
-          id: 5,
-          name: 'Dawit Assefa',
-          year: '2nd Year',
-          rating: 5,
-          image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-          review: '"BEST BEYAYNET IN CAMPUS! THE VARIETY OF VEGETABLES IS IMPRESSIVE AND EVERYTHING TASTES FRESH. THE INJERA IS SOFT AND PERFECTLY FERMENTED. VERY AFFORDABLE FOR STUDENTS. THE STAFF ARE FRIENDLY AND ALWAYS SMILING."'
+          id: 4,
+          name: 'Beza Tadesse',
+          year: '3rd Year',
+          rating: 4,
+          image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=200&auto=format&fit=crop',
+          review: '"GOOD FOOD OVERALL, BUT THE SERVICE CAN BE SLOW DURING PEAK HOURS. THE MANGO JUICE WAS EXCELLENT - FRESH AND NOT TOO SWEET. THE SEATING AREA IS COMFORTABLE AND CLEAN. I RECOMMEND COMING DURING OFF-PEAK HOURS FOR BETTER SERVICE."'
         }
       ];
       setReviews(prev => [...prev, ...additionalMockReviews]);
@@ -295,6 +324,16 @@ const CustomerReview = () => {
       });
       setExpandedReviews(prev => ({ ...prev, ...newExpanded }));
     }
+  };
+
+  // Function to handle menu item click - Whole box is clickable
+  const handleMenuItemClick = (menuItem) => {
+    navigate('/menu-item', {
+      state: {
+        menuItem: menuItem,
+        business: business
+      }
+    });
   };
 
   if (loading) {
@@ -383,22 +422,28 @@ const CustomerReview = () => {
 
       <hr className="divider" />
 
-      {/* Menu Section */}
+      {/* Menu Section - UPDATED WITH WHOLE BOX CLICKABLE */}
       <section className="container" style={{ padding: '40px 20px' }}>
         <h2 className="section-title">MENU</h2>
         <h3 style={{ fontFamily: 'var(--font-heading)', marginBottom: '20px' }}>TOP</h3>
 
-        <div className="businesses-grid">
-          {(menuItems.length > 0 ? menuItems : mockMenuItems).map((item) => (
-            <div key={item.id} className="business-card">
-              <div className="business-image-wrapper">
+        {/* Horizontal scrolling menu container */}
+        <div className="menu-horizontal-scroll">
+          {menuItems.map((item) => (
+            <div 
+              key={item.id} 
+              className="menu-card clickable-menu-item"
+              onClick={() => handleMenuItemClick(item)}
+            >
+              {/* Image with price tag */}
+              <div className="menu-image-wrapper">
                 <img src={item.image} alt={item.name} />
-                <div className="price-tag">{item.price}</div>
+                <div className="menu-price-tag">{item.price}</div>
               </div>
               <h4 style={{ margin: '10px 0' }}>{item.name}</h4>
               <div className="rating-stars" style={{ fontSize: '0.8rem', marginBottom: '10px' }}>
-                {renderStars(4.5)}
-                <span>4.5 (234)</span>
+                {renderStars(item.rating || 4.5)}
+                <span>{item.rating?.toFixed(1) || '4.5'} ({item.reviewCount || 234})</span>
               </div>
             </div>
           ))}
@@ -449,7 +494,6 @@ const CustomerReview = () => {
           })}
         </div>
 
-        {/* Add more reviews button - OUTSIDE the review boxes */}
         <div style={{ textAlign: 'center', marginTop: '40px' }}>
           {!showAllReviews && reviews.length > 3 && (
             <button 
@@ -469,7 +513,6 @@ const CustomerReview = () => {
               Load More Reviews
             </button>
           )}
-       
         </div>
       </section>
     </main>
