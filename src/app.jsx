@@ -11,6 +11,8 @@ import Delivery from './pages/Delivery/Delivery';
 import Reviews from './pages/Reviews/Reviews';
 import CustomerReview from './pages/CustomerReview/CustomerReview';
 import SubmitReview from './pages/SubmitReview/SubmitReview';
+import Login from './pages/Login/Login';
+
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/customer-review" element={<CustomerReview />} />
             <Route path="/submit-review" element={<SubmitReview />} />
+            <Route path="/login" element={<Login />} />
+          
           </Routes>
         </main>
         <Footer />
