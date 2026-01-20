@@ -12,6 +12,7 @@ import Reviews from './pages/Reviews/Reviews';
 import CustomerReview from './pages/CustomerReview/CustomerReview';
 import SubmitReview from './pages/SubmitReview/SubmitReview';
 import Login from './pages/Login/Login';
+import MenuItemDetail from './pages/MenuItemDetail/MenuItemDetail';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/customer-review" element={<CustomerReview />} />
             <Route path="/submit-review" element={<SubmitReview />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/menu-item" element={<MenuItemDetail />} />
           
           </Routes>
         </main>
