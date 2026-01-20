@@ -1,175 +1,311 @@
 {
-  "featuredBusinesses": [
+  "businesses": [
     {
       "id": "b1",
-      "name": "Student Center Cafeteria",
-      "slug": "student-center-cafeteria",
+      "name": "DESTA CAFE",
+      "slug": "desta-cafe",
       "category": "on-campus",
-      "description": "The central hub for student dining. Offers traditional and modern meals.",
-      "rating": 4.2,
-      "reviewCount": 156,
-      "address": "6k Campus, Main Hall",
-      "image": "https://images.unsplash.com/photo-1567529684892-09290a1b2d05",
-      "isFeatured": true
+      "description": "Great coffee and sandwiches! Student favorite spot.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.5,
+        "count": 42
+      },
+      "location": {
+        "address": "5K Campus, Building A",
+        "coordinates": {
+          "lat": 9.03,
+          "lng": 38.75
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-1.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "07:00 AM",
+        "closeTime": "09:00 PM"
+      }
     },
     {
       "id": "b2",
-      "name": "Campus Coffee Corner",
-      "slug": "campus-coffee-corner",
-      "category": "on-campus",
-      "description": "Cozy coffee shop offering Ethiopian coffee, pastries, and snacks.",
-      "rating": 4.5,
-      "reviewCount": 89,
-      "address": "5k Campus, Library Building",
-      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-      "isFeatured": true
+      "name": "123FASTFOOD",
+      "slug": "123fastfood",
+      "category": "delivery",
+      "description": "Fast delivery and tasty burgers. Open late for students.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.2,
+        "count": 31
+      },
+      "location": {
+        "address": "Near 6K Gate",
+        "coordinates": {
+          "lat": 9.04,
+          "lng": 38.76
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-2.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "10:00 AM",
+        "closeTime": "11:00 PM"
+      }
     },
     {
       "id": "b3",
-      "name": "Ethio-Fresh Restaurant",
-      "slug": "ethio-fresh-restaurant",
-      "category": "off-campus",
-      "description": "Authentic Ethiopian restaurant just outside 4k campus.",
-      "rating": 4.7,
-      "reviewCount": 234,
-      "address": "Near 4k Campus Gate",
-      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
-      "isFeatured": false
+      "name": "CHRISTINA CAFE",
+      "slug": "christina-cafe",
+      "category": "on-campus",
+      "description": "Best traditional Ethiopian food on campus.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.8,
+        "count": 56
+      },
+      "location": {
+        "address": "4K Student Center",
+        "coordinates": {
+          "lat": 9.02,
+          "lng": 38.74
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-3.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "08:00 AM",
+        "closeTime": "08:00 PM"
+      }
     },
-     {
+    {
       "id": "b4",
-      "name": "Ethio-Fresh Restaurant",
-      "slug": "ethio-fresh-restaurant",
-      "category": "off-campus",
-      "description": "Authentic Ethiopian restaurant just outside 4k campus.",
-      "rating": 4.7,
-      "reviewCount": 234,
-      "address": "Near 4k Campus Gate",
-      "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
-      "isFeatured":true
-    }, 
+      "name": "SLEEK DELIVERY",
+      "slug": "sleek-delivery",
+      "category": "delivery",
+      "description": "Reliable delivery service for all campuses.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.3,
+        "count": 28
+      },
+      "location": {
+        "address": "Multiple campuses",
+        "coordinates": {
+          "lat": 9.03,
+          "lng": 38.76
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-4.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "09:00 AM",
+        "closeTime": "10:00 PM"
+      }
+    },
     {
       "id": "b5",
-      "name": "Student Center Cafeteria",
-      "slug": "student-center-cafeteria",
-      "category": "on-campus",
-      "description": "The central hub for student dining. Offers traditional and modern meals.",
-      "rating": 4.2,
-      "reviewCount": 156,
-      "address": "6k Campus, Main Hall",
-      "image": "https://images.unsplash.com/photo-1567529684892-09290a1b2d05",
-      "isFeatured": true
+      "name": "MILLENNIUM CAFE",
+      "slug": "millennium-cafe",
+      "category": "off-campus",
+      "description": "Perfect for quick lunches between classes.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.0,
+        "count": 19
+      },
+      "location": {
+        "address": "Across from 5K Main Gate",
+        "coordinates": {
+          "lat": 9.03,
+          "lng": 38.77
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-5.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "07:30 AM",
+        "closeTime": "07:00 PM"
+      }
     },
     {
       "id": "b6",
-      "name": "Student Center Cafeteria",
-      "slug": "student-center-cafeteria",
-      "category": "on-campus",
-      "description": "The central hub for student dining. Offers traditional and modern meals.",
-      "rating": 4.2,
-      "reviewCount": 156,
-      "address": "6k Campus, Main Hall",
-      "image": "https://images.unsplash.com/photo-1567529684892-09290a1b2d05",
-      "isFeatured": true
+      "name": "RED SEA RESTAURANT",
+      "slug": "red-sea-restaurant",
+      "category": "off-campus",
+      "description": "Friendly staff and great prices. Popular for groups.",
+      "isFeatured": true,
+      "rating": {
+        "average": 4.6,
+        "count": 47
+      },
+      "location": {
+        "address": "Saris Area",
+        "coordinates": {
+          "lat": 9.05,
+          "lng": 38.78
+        }
+      },
+      "image": [
+        {
+          "url": "./images/featured-1.png",
+          "isPrimary": true
+        }
+      ],
+      "hours": {
+        "openTime": "11:00 AM",
+        "closeTime": "10:00 PM"
+      }
     }
   ],
   "reviews": [
     {
       "id": "r1",
       "businessId": "b1",
-      "businessName": "Student Center Cafeteria",
-      "businessCategory": "on-campus",
       "userId": "u1",
-      "userName": "Abebe Kebede",
-      "userAvatar": "https://i.pravatar.cc/150?img=1",
-      "rating": 5,
-      "title": "Best Traditional Food!",
-      "comment": "Best place for traditional food on campus! The Special Beyaynetu is amazing and the price is very reasonable for students.",
-      "date": "2026-01-15T10:30:00Z",
-      "likes": 12,
-      "isEdited": false
+      "rating": 4.5,
+      "body": "I ORDERED FROM HERE LAST WEEK - GOT MY ORDER IN 10 MINUTES! SUPER FAST AND FRIENDLY SERVICE.",
+      "helpfulCount": 12,
+      "isApproved": true,
+      "createdAt": "2024-12-15T10:30:00Z"
     },
     {
       "id": "r2",
       "businessId": "b2",
-      "businessName": "Campus Coffee Corner",
-      "businessCategory": "on-campus",
       "userId": "u2",
-      "userName": "Tigist Alemu",
-      "userAvatar": "https://i.pravatar.cc/150?img=2",
-      "rating": 4,
-      "title": "Great Coffee Spot",
-      "comment": "Great food, but sometimes crowded during lunch hours. The staff is friendly and the coffee is excellent.",
-      "date": "2026-01-14T14:20:00Z",
-      "likes": 8,
-      "isEdited": false
-      
+      "rating": 4.8,
+      "body": "Best burgers on campus! Always fresh and hot. Perfect for late night studying.",
+      "helpfulCount": 8,
+      "isApproved": true,
+      "createdAt": "2024-12-14T14:20:00Z"
+    },
+    {
+      "id": "r3",
+      "businessId": "b3",
+      "userId": "u3",
+      "rating": 5.0,
+      "body": "Authentic Ethiopian food at reasonable prices. Their beyaynetu is amazing!",
+      "helpfulCount": 15,
+      "isApproved": true,
+      "createdAt": "2024-12-13T12:15:00Z"
+    },
+    {
+      "id": "r4",
+      "businessId": "b4",
+      "userId": "u4",
+      "rating": 4.3,
+      "body": "Always delivers on time, even during rush hours. Very reliable service.",
+      "helpfulCount": 5,
+      "isApproved": true,
+      "createdAt": "2024-12-12T18:45:00Z"
+    },
+    {
+      "id": "r5",
+      "businessId": "b1",
+      "userId": "u5",
+      "rating": 4.2,
+      "body": "Good coffee but sometimes too crowded during lunch hours.",
+      "helpfulCount": 3,
+      "isApproved": true,
+      "createdAt": "2024-12-11T11:20:00Z"
+    },
+    {
+      "id": "r6",
+      "businessId": "b5",
+      "userId": "u6",
+      "rating": 4.0,
+      "body": "Quick service and decent food. Perfect for between classes.",
+      "helpfulCount": 2,
+      "isApproved": true,
+      "createdAt": "2024-12-10T13:10:00Z"
     }
-    
   ],
   "users": [
     {
       "id": "u1",
-      "name": "Abebe Kebede",
-      "email": "abebe@student.aau.edu.et",
+      "email": "student1@aau.edu.et",
+      "name": "Anna",
       "avatar": "https://i.pravatar.cc/150?img=1",
+      "role": "user",
       "university": "AAU",
-      "dormitory": "6k",
-      "reviewCount": 12
+      "dormitory": "5K",
+      "yearOfStudy": "2nd Year"
     },
     {
       "id": "u2",
-      "name": "Tigist Alemu",
-      "email": "tigist@student.aau.edu.et",
+      "email": "student2@aau.edu.et",
+      "name": "Mike",
       "avatar": "https://i.pravatar.cc/150?img=2",
+      "role": "user",
       "university": "AAU",
-      "dormitory": "5k",
-      "reviewCount": 8
+      "dormitory": "6K",
+      "yearOfStudy": "3rd Year"
+    },
+    {
+      "id": "u3",
+      "email": "student3@aau.edu.et",
+      "name": "Sara",
+      "avatar": "https://i.pravatar.cc/150?img=3",
+      "role": "user",
+      "university": "AAU",
+      "dormitory": "4K",
+      "yearOfStudy": "1st Year"
     }
   ],
-  "deliveryServices": [
+  "deliveries": [
     {
       "id": "d1",
       "name": "Campus Express Delivery",
-      "description": "Fast and reliable delivery service for AAU students.",
-      "rating": 4.5,
-      "deliveryFee": "15-30 ETB",
-      "averageTime": "25 mins",
-      "servicedAreas": [
-        "5k",
-        "6k",
-        "4k"
-      ],
-      "contact": {
-        "phone": "+251911234567",
-        "telegram": "@campusexpress"
+      "description": "Fast and reliable delivery service for AAU students",
+      "servicedAreas": ["5k", "6k", "4k"],
+      "deliverySpeed": "fast",
+      "averageDeliveryTime": 25,
+      "deliveryFee": {
+        "min": 15,
+        "max": 30
       },
-      "logo": "https://example.com/logos/campus-express.png",
-      "isActive": true
+      "rating": {
+        "average": 4.5,
+        "count": 89
+      }
     }
   ],
-  "categories": [
+  "menu": [
     {
-      "id": "on-campus",
-      "name": "On Campus",
-      "description": "Restaurants and cafes located within AAU campuses",
-      "count": 25
+      "id": "m1",
+      "businessId": "b1",
+      "itemName": "Special Coffee",
+      "description": "Traditional Ethiopian coffee with popcorn",
+      "price": 35,
+      "currency": "ETB",
+      "category": "drinks",
+      "isPopular": true,
+      "isAvailable": true
     }
   ],
-  "locations": [
+  "applications": [
     {
-      "id": "4k",
-      "name": "4 Kilo Campus",
-      "description": "Main campus area"
-    }
-  ],
-  "businessApplications": [
-    {
-      "id": "8823",
-      "businessName": "betsinat",
-      "location": "somewhere",
-      "description": "sajhhsd",
-      "date": "2026-01-20T10:48:25.782Z",
+      "id": "a1",
+      "businessName": "Yeshi's Coffee House",
+      "location": "Near 5k Campus Gate",
+      "description": "Traditional Ethiopian coffee and snacks",
       "status": "pending"
     }
   ]

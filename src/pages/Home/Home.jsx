@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
-  const [featuredBusinesses, setFeaturedBusinesses] = useState([]);
+  const [businesses, setBusinesses] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,10 +14,10 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      // Fetch featured businesses AND reviews
+      // Fetch featured businesses AND reviews using API documentation structure
       const [businessesResponse, reviewsResponse] = await Promise.all([
-        fetch('http://localhost:3004/featuredBusinesses?isFeatured=true'),
-        fetch('http://localhost:3004/reviews?_limit=6&_sort=date&_order=desc')
+        fetch('http://localhost:3000/businesses?isFeatured=true&_limit=6'),
+        fetch('http://localhost:3000/reviews?_limit=6&_sort=createdAt&_order=desc')
       ]);
       
       if (!businessesResponse.ok || !reviewsResponse.ok) {
@@ -27,7 +27,7 @@ const Home = () => {
       const businessesData = await businessesResponse.json();
       const reviewsData = await reviewsResponse.json();
       
-      setFeaturedBusinesses(businessesData);
+      setBusinesses(businessesData);
       setReviews(reviewsData);
     } catch (err) {
       setError(err.message);
@@ -38,16 +38,52 @@ const Home = () => {
   };
 
   // Get businesses to display
-  const businessesToDisplay = featuredBusinesses.length > 0 
-    ? featuredBusinesses.slice(0, 6)
+  const businessesToDisplay = businesses.length > 0 
+    ? businesses.slice(0, 6)
     : [
         // Fallback static data if API returns nothing
-        { id: 1, name: "DESTA CAFE", description: "Great coffee and sandwiches!", image: "./images/featured-1.png" },
-        { id: 2, name: "123FASTFOOD", description: "Fast delivery and tasty burgers", image: "./images/featured-2.png" },
-        { id: 3, name: "CHRISTINA CAFE", description: "Best traditional food on campus", image: "./images/featured-3.png" },
-        { id: 4, name: "SLEEK DELIVERY", description: "Reliable delivery service", image: "./images/featured-4.png" },
-        { id: 5, name: "DESTA CAFE", description: "Perfect for quick lunches", image: "./images/featured-5.png" },
-        { id: 6, name: "DESTA CAFE", description: "Friendly staff and great prices", image: "./images/featured-1.png" }
+        { 
+          id: "b1", 
+          name: "DESTA CAFE", 
+          description: "Great coffee and sandwiches!", 
+          image: [{url: "./images/featured-1.png", isPrimary: true}],
+          rating: {average: 4.5, count: 42}
+        },
+        { 
+          id: "b2", 
+          name: "123FASTFOOD", 
+          description: "Fast delivery and tasty burgers", 
+          image: [{url: "./images/featured-2.png", isPrimary: true}],
+          rating: {average: 4.2, count: 31}
+        },
+        { 
+          id: "b3", 
+          name: "CHRISTINA CAFE", 
+          description: "Best traditional food on campus", 
+          image: [{url: "./images/featured-3.png", isPrimary: true}],
+          rating: {average: 4.8, count: 56}
+        },
+        { 
+          id: "b4", 
+          name: "SLEEK DELIVERY", 
+          description: "Reliable delivery service", 
+          image: [{url: "./images/featured-4.png", isPrimary: true}],
+          rating: {average: 4.3, count: 28}
+        },
+        { 
+          id: "b5", 
+          name: "DESTA CAFE", 
+          description: "Perfect for quick lunches", 
+          image: [{url: "./images/featured-5.png", isPrimary: true}],
+          rating: {average: 4.0, count: 19}
+        },
+        { 
+          id: "b6", 
+          name: "DESTA CAFE", 
+          description: "Friendly staff and great prices", 
+          image: [{url: "./images/featured-1.png", isPrimary: true}],
+          rating: {average: 4.6, count: 47}
+        }
       ];
 
   // Get reviews for each business
@@ -57,8 +93,8 @@ const Home = () => {
       const businessReview = reviews.find(review => review.businessId === business.id);
       if (businessReview) {
         return {
-          text: businessReview.comment || businessReview.title,
-          author: `- ${businessReview.userName}`,
+          text: businessReview.body || businessReview.comment,
+          author: `- ${businessReview.userName || 'Student'}`,
           rating: `⭐ ${businessReview.rating}`,
           isReal: true
         };
@@ -68,8 +104,8 @@ const Home = () => {
       const anyReview = reviews[index % reviews.length];
       if (anyReview) {
         return {
-          text: anyReview.comment || anyReview.title,
-          author: `- ${anyReview.userName}`,
+          text: anyReview.body || anyReview.comment,
+          author: `- ${anyReview.userName || 'Student'}`,
           rating: `⭐ ${anyReview.rating}`,
           isReal: true
         };
@@ -83,6 +119,25 @@ const Home = () => {
       rating: "⭐ 4.5",
       isReal: false
     };
+  };
+
+  // Helper to get image URL from API structure
+  const getImageUrl = (business) => {
+    if (business.image && business.image.length > 0) {
+      // Get primary image or first image
+      const primaryImage = business.image.find(img => img.isPrimary);
+      return primaryImage ? primaryImage.url : business.image[0].url;
+    }
+    // Fallback based on index if no image
+    return "./images/default.png";
+  };
+
+  // Helper to get rating from API structure
+  const getRating = (business) => {
+    if (business.rating && business.rating.average) {
+      return business.rating.average;
+    }
+    return 0;
   };
 
   return (
@@ -146,18 +201,20 @@ const Home = () => {
           </div>
         ) : error ? (
           <div style={{textAlign: 'center', padding: '40px', color: '#ff4444'}}>
-            Error loading businesses. Please make sure JSON Server is running on port 3004.
+            Error loading businesses. Please make sure JSON Server is running on port 3000.
           </div>
         ) : (
           <div className="businesses-grid">
             {businessesToDisplay.map((business, index) => {
               const review = getBusinessReview(business, index);
+              const imageUrl = getImageUrl(business);
+              const rating = getRating(business);
               
               return (
                 <div key={business.id || index} className="business-card">
                   <div className="business-image-wrapper">
                     <img 
-                      src={business.image} 
+                      src={imageUrl} 
                       alt={business.name} 
                       onError={(e) => {
                         e.target.src = `./images/featured-${(index % 5) + 1}.png`;
